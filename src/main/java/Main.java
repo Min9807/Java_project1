@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -35,8 +36,30 @@ public class Main {
             else if(qt.contains("삭제")){
                 String findId = qt.split("=")[1];
                 int deleteId = Integer.parseInt(findId);
-                bookArrayList.remove(bookArrayList.get(deleteId));
-                System.out.println(deleteId + "번 명언이 삭제되었습니다.");
+                int[] findInt = new int[bookArrayList.size()];
+                int countnewbook = 0;
+                for(book newbook : bookArrayList){
+                    findInt[countnewbook] = newbook.getId();
+                    countnewbook++;
+                }
+                int a = 0;
+
+                for(int id : findInt){
+                    if(id == deleteId){
+                        a++;
+                    }
+                    if(a==0){
+                        System.out.println(deleteId +"번 명언은 존재하지 않습니다.");
+                    }
+                }
+
+                for(book newbook : bookArrayList){
+                    if(newbook.getId() == deleteId){
+                        bookArrayList.remove(newbook);
+                        System.out.println(deleteId + "번 명언이 삭제되었습니다.");
+                    }
+                }
+
 
 
             }
@@ -56,6 +79,7 @@ class book{
     private String talking;
     private String author;
 
+    ArrayList<book> bookArrayList = new ArrayList<>();
 
     public book(int id, String talking, String author){
         this.id = id;
